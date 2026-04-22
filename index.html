@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Les fondamentaux de l'IA</title>
+  <style>
+    :root {
+      --primary: #004aad;
+      --secondary: #4ab6ca;
+      --dark: #1f2937;
+      --text: #222;
+      --muted: #6b7280;
+      --bg: #f7fbfd;
+      --white: #ffffff;
+      --border: #d8e6eb;
+      --shadow: 0 10px 30px rgba(0, 74, 173, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #eef8fb 0%, #f8fcfd 100%);
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--primary); }
+
+    .page {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 120px 1fr;
+      gap: 24px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .logo-wrap {
+      background: #f3f8ff;
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid #d8e5ff;
+      min-height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-wrap img { max-height: 90px; object-fit: contain; }
+
+    h1 {
+      margin: 0 0 8px;
+      color: var(--dark);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .tagline {
+      margin: 0;
+      font-size: 1.2rem;
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    .intro-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .content, .aside {
+      padding: 24px;
+    }
+
+    .section-title {
+      margin-top: 0;
+      margin-bottom: 14px;
+      color: var(--dark);
+      font-size: 1.5rem;
+    }
+
+    .meta-list {
+      display: grid;
+      gap: 12px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .meta-list li {
+      background: #f8fbff;
+      border: 1px solid #e4eefb;
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+
+    .button-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 999px;
+      padding: 12px 18px;
+      min-height: 48px;
+      border: 2px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn-secondary {
+      background: white;
+      color: var(--primary);
+      border-color: var(--primary);
+    }
+
+    .poster {
+      overflow: hidden;
+    }
+
+    .poster img {
+      width: 100%;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+    }
+
+    .program {
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    details {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0;
+      background: #fbfeff;
+      overflow: hidden;
+    }
+
+    details + details { margin-top: 12px; }
+
+    summary {
+      cursor: pointer;
+      list-style: none;
+      padding: 16px 18px;
+      font-weight: 700;
+      color: var(--dark);
+      background: #f3fbfe;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    .details-content {
+      padding: 16px 18px 20px;
+    }
+
+    .video-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .embed-card {
+      padding: 24px;
+    }
+
+    .embed-box {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #eef7fb;
+      min-height: 320px;
+    }
+
+    iframe { width: 100%; border: 0; min-height: 320px; }
+
+    .note {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-left: 4px solid var(--secondary);
+      background: #f4fbfc;
+      border-radius: 10px;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 24px;
+      text-align: center;
+      color: var(--dark);
+      font-size: 1rem;
+      margin-bottom: 24px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    @media (max-width: 900px) {
+      .hero,
+      .intro-grid,
+      .video-map {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-wrap { max-width: 180px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero card" aria-labelledby="titre-formation">
+      <div class="logo-wrap">
+        <img src="GOCAP.png" alt="Logo GO CAP - Gebel Orientation Conseil et Accompagnement Professionnel" />
+      </div>
+      <div>
+        <h1 id="titre-formation">Les fondamentaux de l'IA</h1>
+        <p class="tagline">Et si l’IA devenait votre meilleure alliée&nbsp;?</p>
+      </div>
+    </section>
+
+    <section class="intro-grid">
+      <article class="content card">
+        <h2 class="section-title">Présentation de la formation</h2>
+        <p>
+          Cette formation propose une découverte claire, concrète et accessible des usages essentiels de l’intelligence artificielle.
+          Elle permet de comprendre les bases, d’identifier des usages professionnels pertinents et d’adopter une posture critique,
+          éthique et responsable.
+        </p>
+
+        <ul class="meta-list">
+          <li><strong>Date :</strong> 02/04/2026</li>
+          <li><strong>Lieu :</strong> FHF Grand Est</li>
+          <li><strong>Adresse :</strong> 29 avenue du Maréchal de Lattre de Tassigny, Nancy</li>
+        </ul>
+
+        <div class="button-row">
+          <a class="btn btn-primary" href="programmeformIA.pdf" download>Télécharger le programme PDF</a>
+          <a class="btn btn-secondary" href="programmeformIA.pdf" target="_blank" rel="noopener">Ouvrir le programme</a>
+        </div>
+      </article>
+
+      <aside class="aside card poster" aria-labelledby="visuel-formation">
+        <h2 id="visuel-formation" class="section-title">Visuel de la formation</h2>
+        <img src="afficheformIA.pdf" alt="Affiche de la formation Les fondamentaux de l'IA animée par Annick Gebel" />
+        <p class="note">Le visuel est appelé avec un chemin relatif simple, conformément à ta consigne.</p>
+      </aside>
+    </section>
+
+    <section class="program card" aria-labelledby="programme-titre">
+      <h2 id="programme-titre" class="section-title">Programme détaillé</h2>
+
+      <details open>
+        <summary>Module 1 – Comprendre les fondamentaux de l’IA</summary>
+        <div class="details-content">
+          <ul>
+            <li>Comprendre les grandes familles d’IA et les LLM</li>
+            <li>Découvrir la pragmatique du langage et les bases du markdown</li>
+            <li>Identifier les principaux outils IA générative</li>
+            <li>Analyser des réponses IA et reformuler des demandes</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Module 2 – Communiquer efficacement avec l’IA</summary>
+        <div class="details-content">
+          <ul>
+            <li>Découvrir les fonctionnalités clés de ChatGPT</li>
+            <li>Comprendre les notions de rôle, contexte et persona</li>
+            <li>Structurer ses demandes pour obtenir des réponses pertinentes</li>
+            <li>Personnaliser son usage de l’IA</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Module 3 – Ingénierie de prompt et méthodologie</summary>
+        <div class="details-content">
+          <ul>
+            <li>Découvrir les frameworks ROC, COFRAC, RPBDC et SCAMPER</li>
+            <li>Travailler le few-shot prompting et les chaînes de raisonnement</li>
+            <li>Améliorer et sécuriser ses prompts</li>
+            <li>Découvrir l’automatisation, les agents et la veille assistée par IA</li>
+          </ul>
+        </div>
+      </details>
+
+      <details>
+        <summary>Module 4 – Applications IA et usages professionnels</summary>
+        <div class="details-content">
+          <ul>
+            <li>Explorer les principaux outils IA utiles en contexte professionnel</li>
+            <li>Associer un outil à un besoin concret</li>
+            <li>Identifier les limites, biais et hallucinations</li>
+            <li>Adopter une posture critique, éthique et responsable</li>
+          </ul>
+        </div>
+      </details>
+    </section>
+
+    <section class="video-map">
+      <article class="embed-card card" aria-labelledby="video-titre">
+        <h2 id="video-titre" class="section-title">Présentation vidéo de la formation</h2>
+        <div class="embed-box">
+          <iframe
+            src="about:blank"
+            title="Vidéo de présentation NoteBookLM à renseigner"
+            loading="lazy"
+            aria-describedby="video-note">
+          </iframe>
+        </div>
+        <p id="video-note" class="note">
+          L’URL de la vidéo NoteBookLM n’a pas été fournie dans cette conversation. Il suffit de remplacer <strong>about:blank</strong>
+          par l’URL d’intégration ou d’ajouter un lien direct.
+        </p>
+      </article>
+
+      <article class="embed-card card" aria-labelledby="carte-titre">
+        <h2 id="carte-titre" class="section-title">Accès au lieu de formation</h2>
+        <div class="embed-box">
+          <iframe
+            title="Carte Google Maps de la FHF Grand Est à Nancy"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps?q=29%20avenue%20du%20Mar%C3%A9chal%20de%20Lattre%20de%20Tassigny%2C%20Nancy&output=embed">
+          </iframe>
+        </div>
+        <p class="note">Carte intégrée pour faciliter le repérage et l’accessibilité du lieu.</p>
+      </article>
+    </section>
+
+    <footer class="card">
+      <strong>Annick Gebel</strong> – 06 17 57 47 40 – annick.gebel@go-cap.fr
+    </footer>
+  </main>
+</body>
+</html>
